@@ -1,6 +1,16 @@
 <p>photo-grid works!</p>
 
 <mat-grid-list cols="2" rowHeight="2:1">
+    <ng-container *ngFor = "let photo of data">
+        <mat-grid-tile>
+            <img *ngIf="photo.src?.original"
+            [src]="photo.src.medium"
+            [alt]="photo.id">
+        </mat-grid-tile>
+    </ng-container>
+</mat-grid-list>
+
+<mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile>1</mat-grid-tile>
     <mat-grid-tile>2</mat-grid-tile>
     <mat-grid-tile>3</mat-grid-tile>
