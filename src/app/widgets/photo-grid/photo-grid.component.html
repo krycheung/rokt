@@ -1,18 +1,47 @@
 <p>photo-grid works!</p>
 
-<mat-grid-list cols="2" rowHeight="2:1">
-    <ng-container *ngFor = "let photo of data">
-        <mat-grid-tile>
-            <img *ngIf="photo.src?.original"
-            [src]="photo.src.medium"
-            [alt]="photo.id">
-        </mat-grid-tile>
-    </ng-container>
-</mat-grid-list>
+<!-- <mat-form-field>
+    <input type="text" matInput placeholder="Search">
+</mat-form-field> -->
 
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list>
+<div class="Photo">
+    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="2">
+            <mat-grid-tile  *ngFor = "let photo of photos">
+                <div class="img__wrap">
+                    <img *ngIf="photo.src?.original"
+                    [src]="photo.src.medium"
+                    [alt]="photo.id"
+                    style="width:75%">
+                    <div class="img__description">
+                        <p>By: {{photo.photographer}}</p>
+                        <p>Photographer Link: {{photo.photographer_url}}</p>    
+                    </div>
+                </div>
+            </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <button matSuffix mat-button (click)="loadPreviousPage()" *ngIf="currentPagScope != 1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+      <li class="page-item"><a class="page-link" href="#">{{currentPagScope}}</a></li>
+      <button matSuffix mat-button (click)="loadNextPage()">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </ul>
+</nav>
+
+<div class="Search">
+    <mat-form-field appearance="fill">
+        <mat-label>Search for photos...</mat-label>
+        <input matInput [(ngModel)]="searchText">
+        <button matSuffix mat-button (click)="searchPhotos(searchText)">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+</div>
