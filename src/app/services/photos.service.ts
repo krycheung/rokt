@@ -13,9 +13,8 @@ export class PhotoService {
 
     constructor(private httpClient: HttpClient) {}
 
-    //TODO: Hide api key
     getPhotos(url: string): Observable<PhotoData> {
-        let headers = new HttpHeaders().set('Authorization', 'eZji5h1Ie55Dxk7FCdycI0hZdLwp4Or5twRaTTj5mYCJ3W87Wvr2K19M');
+        let headers = new HttpHeaders().set('Authorization', environment.apiKey);
         return this.httpClient.get<PhotoData>(url, {headers: headers})
         .pipe(
             catchError((err) => {

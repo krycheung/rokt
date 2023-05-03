@@ -14,6 +14,8 @@ export class PhotoGridComponent implements OnInit{
 
   @Input()
   searchText!: string;
+  text!: string;
+  searchMode!: boolean;
 
   photoObservable!: Observable<any>;
   photos: any;
@@ -25,8 +27,6 @@ export class PhotoGridComponent implements OnInit{
   totalPages: any;
 
   currentPagScope = 1;
-  secondPagScope: any;
-  thirdPagScope: any;
 
   apiUrl: string = `${environment.apiUrl}/curated/?per_page=10`
 
@@ -40,12 +40,12 @@ export class PhotoGridComponent implements OnInit{
     this.apiUrl = `${environment.apiUrl}/search?query=${filterValue}&per_page=10`
     this.photoService.getPhotos(this.apiUrl).subscribe((results) => {
       this.photos = results.photos;
-      this.totalPages = results.total_results / 10 + 1
+      this.totalPages = Math.ceil(results.total_results / 10)
       this.nextPage = results.next_page ? results.next_page : ""
       this.previousPage = results.prev_page ? results.prev_page : ""
       this.currentPagScope = 1
-      this.secondPagScope = this.currentPagScope + 1
-      this.thirdPagScope = this.currentPagScope + 2
+      this.searchMode = true
+      this.text = filterValue
       sessionStorage.setItem('searchText', filterValue)
     })
   }
@@ -56,8 +56,6 @@ export class PhotoGridComponent implements OnInit{
       this.nextPage = results.next_page ? results.next_page : ""
       this.previousPage = results.prev_page
       this.currentPagScope = this.currentPagScope + 1
-      this.secondPagScope = this.secondPagScope + 1
-      this.thirdPagScope = this.thirdPagScope + 1
     })
   }
 
@@ -67,8 +65,6 @@ export class PhotoGridComponent implements OnInit{
       this.nextPage = results.next_page ? results.next_page : ""
       this.previousPage = results.prev_page
       this.currentPagScope = this.currentPagScope - 1
-      this.secondPagScope = this.secondPagScope - 1
-      this.thirdPagScope = this.thirdPagScope - 1
     })
   }
 
@@ -79,8 +75,6 @@ export class PhotoGridComponent implements OnInit{
         this.totalPages = results.total_results / 10 + 1
         this.nextPage = results.next_page ? results.next_page : ""
         this.previousPage = results.prev_page ? results.prev_page : ""
-        this.secondPagScope = this.currentPagScope + 1;
-        this.thirdPagScope = this.secondPagScope + 1;
       })
     } else {
       this.searchPhotos(sessionStorage.getItem("searchText"))

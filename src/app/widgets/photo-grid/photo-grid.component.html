@@ -1,47 +1,50 @@
-<p>photo-grid works!</p>
+<div class="content">
+ <h2>Find curated photos here!</h2>
+    <div class="search">
+        <mat-form-field appearance="fill">
+            <mat-label>Search for photos...</mat-label>
+            <input matInput [(ngModel)]="searchText">
+            <button matSuffix mat-button (click)="searchPhotos(searchText)">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+    </div>
 
-<!-- <mat-form-field>
-    <input type="text" matInput placeholder="Search">
-</mat-form-field> -->
+    <h3 *ngIf = "searchMode">Displaying photos for: {{text}}</h3>
 
-<div class="Photo">
-    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="2">
-            <mat-grid-tile  *ngFor = "let photo of photos">
-                <div class="img__wrap">
-                    <img *ngIf="photo.src?.original"
-                    [src]="photo.src.medium"
-                    [alt]="photo.id"
-                    style="width:75%">
-                    <div class="img__description">
-                        <p>By: {{photo.photographer}}</p>
-                        <p>Photographer Link: {{photo.photographer_url}}</p>    
+    <div class="photo">
+        <mat-grid-list cols="2" rowHeight="2:1" gutterSize="2">
+                <mat-grid-tile  *ngFor = "let photo of photos">
+                    <div class="img__wrap">
+                        <img *ngIf="photo.src?.original"
+                        [src]="photo.src.large"
+                        [alt]="photo.id"
+                        style="width:100%">
+                        <div class="img__description">
+                            <p>By: {{photo.photographer}}</p>
+                            <p>Photographer Link: {{photo.photographer_url}}</p>    
+                        </div>
                     </div>
-                </div>
-            </mat-grid-tile>
-    </mat-grid-list>
+                </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    
+    <div class="pagination">
+        <nav aria-label="Page navigation">
+            <ul class="justify-content-center">
+              <button matSuffix mat-button (click)="loadPreviousPage()" *ngIf="currentPagScope != 1">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+              <li class="page-item"><a class="page-link">{{currentPagScope}}</a></li>
+              <button matSuffix mat-button (click)="loadNextPage()" *ngIf="nextPage != '' ">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+            </ul>
+        </nav>
+    </div>
+    
 </div>
 
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-      <button matSuffix mat-button (click)="loadPreviousPage()" *ngIf="currentPagScope != 1">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-      <li class="page-item"><a class="page-link" href="#">{{currentPagScope}}</a></li>
-      <button matSuffix mat-button (click)="loadNextPage()">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-    </ul>
-</nav>
-
-<div class="Search">
-    <mat-form-field appearance="fill">
-        <mat-label>Search for photos...</mat-label>
-        <input matInput [(ngModel)]="searchText">
-        <button matSuffix mat-button (click)="searchPhotos(searchText)">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-            <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-</div>
