@@ -8,4 +8,6 @@ Run `npm install` to download all of the necessary packages and dependencies.
 
 Run `ng serve` to run the application locally. Navigate to `http://localhost:4200/` to view the Pexel Perfect application.
 
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.

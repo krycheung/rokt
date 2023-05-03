@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { PhotoService } from 'src/app/services/photos.service';
-import { catchError, filter, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -23,9 +22,7 @@ export class PhotoGridComponent implements OnInit{
   nextPage: any;
   previousPage: any;
 
-  currentPage = 1;
   totalPages: any;
-
   currentPagScope = 1;
 
   apiUrl: string = `${environment.apiUrl}/curated/?per_page=10`
